@@ -1,0 +1,1 @@
+﻿Constant (ApiPaginationQuery<int>) = #ApiPaginationQuery<int>

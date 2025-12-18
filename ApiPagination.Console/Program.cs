@@ -24,27 +24,24 @@ public class Program
             Timeout = TimeSpan.FromSeconds(15),
         };
 
-        ApiPaginationQuery<User> apiPagination = new ApiPaginationQuery<User>(new ApiPaginationQueryProvider<User>((skip,
+        IQueryable<User> apiPagination = QueryablePagination.MakePagination<User>(async (skip,
             take) =>
         {
-            var result = httpClient.GetAsync($"http://localhost:5187/api/users?skip={skip}&take={take}").GetAwaiter()
-                .GetResult();
-            var content = result.Content.ReadFromJsonAsync<ResultUser>().GetAwaiter().GetResult();
+            var result = await httpClient.GetAsync($"http://localhost:5187/api/users?skip={skip}&take={take}");
+            var content = await result.Content.ReadFromJsonAsync<ResultUser>();
             return content?.Elements;
-        }));
+        });
 
-        List<int> result = apiPagination
-            .Take(500)
-            .Select(pre => 10)
-            .Skip(100)
-            .Where(pre => pre > 1)
-            .Skip(10)
-            .Where(pre => pre /2 == 0)
-            .ToList();
 
-        foreach (var user in result)
+        for(int i = 0; i < 100_000; ++i)
         {
-            System.Console.WriteLine(user);
+            List<string> result = apiPagination
+                .Take(1)
+                .Skip(1 * i)
+                .Select(pre => pre.FirstName + " " + pre.LastName)
+                .ToList();
+            
+            result.ForEach(System.Console.WriteLine);
         }
     }
 }

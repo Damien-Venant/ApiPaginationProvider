@@ -3,22 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ApiPagination.Tests")]
 namespace ApiPagination.Library
 {
-    public class ApiPaginationQuery<T> : IQueryable<T>
+    internal class ApiPaginationQuery<T> : IQueryable<T>
     {
         public Type ElementType { get; }
         public Expression Expression { get; }
         public IQueryProvider Provider { get; }
 
-        public ApiPaginationQuery(IQueryProvider provider)
+        internal ApiPaginationQuery(IQueryProvider provider)
         {
             Expression = Expression.Constant(this);
             Provider = provider;
         }
 
-        public ApiPaginationQuery(IQueryProvider provider, Expression expression)
+        internal ApiPaginationQuery(IQueryProvider provider, Expression expression)
         {
             Provider = provider;
             Expression = expression;

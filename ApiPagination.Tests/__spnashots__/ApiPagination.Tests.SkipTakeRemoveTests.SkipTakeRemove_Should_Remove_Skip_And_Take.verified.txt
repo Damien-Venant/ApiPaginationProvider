@@ -1,0 +1,17 @@
+﻿Call (IQueryable<int>) Queryable.Where
+    · Arguments[0] - Call (IQueryable<int>) Queryable.Select
+        · Arguments[0] - Constant (ApiPaginationQuery<int>) = #ApiPaginationQuery<int>
+        · Arguments[1] - Quote (Expression<Func<int, int>>)
+            · Operand - Lambda (Func<int, int>)
+                · Parameters[0] - Parameter (int) pre
+                · Body - Multiply (int)
+                    · Left - Parameter (int) pre
+                    · Right - Constant (int) = 2
+    · Arguments[1] - Quote (Expression<Func<int, bool>>)
+        · Operand - Lambda (Func<int, bool>)
+            · Parameters[0] - Parameter (int) pre
+            · Body - Equal (bool)
+                · Left - Modulo (int)
+                    · Left - Parameter (int) pre
+                    · Right - Constant (int) = 2
+                · Right - Constant (int) = 0

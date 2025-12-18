@@ -4,14 +4,14 @@ using System.Linq.Expressions;
 
 namespace ApiPagination.Library
 {
-    public class QueryRootReplacer<T> : ExpressionVisitor
+    internal class QueryRootReplacer<T> : ExpressionVisitor
     {
         private IQueryable<T> queryable;
-        public QueryRootReplacer(IEnumerable<T> data)
+        internal QueryRootReplacer(IEnumerable<T> data)
         {
             queryable = data.AsQueryable();
         }
-        public static Expression Replace(Expression expression, IEnumerable<T> data)
+        internal static Expression Replace(Expression expression, IEnumerable<T> data)
         {
             return (new QueryRootReplacer<T>(data)).Visit(expression);
         }

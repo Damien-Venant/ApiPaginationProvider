@@ -3,21 +3,17 @@ using System.Linq.Expressions;
 
 namespace ApiPagination.Library
 {
-    public class ApiPaginationExpressionVisitor : ExpressionVisitor
+    internal class ApiPaginationExpressionVisitor : ExpressionVisitor
     {
         internal ApiParameters Parameters { get; } = new ApiParameters();
         
         protected override Expression VisitMethodCall(MethodCallExpression node)
         {
             if (node.Method.Name == "Skip")
-            {
                 Parameters.Skip = GetConstantesValues(node.Arguments[1]);
-            }
 
             if (node.Method.Name == "Take")
-            {
                 Parameters.Take = GetConstantesValues(node.Arguments[1]);
-            }
             return base.VisitMethodCall(node);
         }
 
