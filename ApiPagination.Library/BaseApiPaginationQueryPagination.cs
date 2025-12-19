@@ -6,6 +6,17 @@ using System.Runtime.CompilerServices;
 [assembly:InternalsVisibleTo("ApiPagination.Tests")]
 namespace ApiPagination.Library
 {
+    public struct SkipTake
+    {
+        public int Skip { get; }
+        public int Take { get; }
+
+        internal SkipTake(int skip, int take)
+        {
+            this.Skip = skip;
+            this.Take = take;
+        }
+    }
     internal abstract class BaseApiPaginationQueryPagination<T> : IQueryProvider
     {
         public IQueryable CreateQuery(Expression expression)
@@ -14,7 +25,7 @@ namespace ApiPagination.Library
         public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
             => new ApiPaginationQuery<TElement>(this, expression);
 
-        protected abstract IEnumerable<T> getData(int skip, int take);
+        protected abstract IEnumerable<T> getData(SkipTake skipTake);
 
         public object Execute(Expression expression)
         {
@@ -22,7 +33,8 @@ namespace ApiPagination.Library
             visitor.Visit(expression);
             
             ApiParameters parameters = visitor.Parameters;
-            List<T> data = getData(parameters.Skip, parameters.Take).ToList();
+            List<T> data = getData(new SkipTake(parameters.Skip, parameters.Take))
+                .ToList();
 
             var newExpression = QueryRootReplacer<T>.Replace(expression, data);
             newExpression = SkipTakeRemove.Replace(newExpression);

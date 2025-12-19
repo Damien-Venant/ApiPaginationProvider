@@ -13,7 +13,7 @@ public class QueryRootReplacerTests
     {
         // Arrange
         List<int> test = [4, 5, 6];
-        IQueryable query = QueryablePagination.MakePagination<int>((_, _) => [1, 2, 3, 4, 5]);
+        IQueryable query = QueryablePagination.MakePagination<int>((_) => [1, 2, 3, 4, 5]);
 
         // Assert
         Expression? result = QueryRootReplacer<int>.Replace(query.Expression, test);

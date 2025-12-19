@@ -11,7 +11,7 @@ public class SkipTakeRemoveTests
     {
         // Arrange
         List<int> vals = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        IQueryable<int> query = QueryablePagination.MakePagination((_, _) => vals)
+        IQueryable<int> query = QueryablePagination.MakePagination((_) => vals)
             .Skip(10);
 
         //Act
@@ -26,7 +26,7 @@ public class SkipTakeRemoveTests
     {
         // Arrange
         List<int> vals = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        IQueryable<int> query = QueryablePagination.MakePagination((_, _) => vals)
+        IQueryable<int> query = QueryablePagination.MakePagination((skipTake) => vals)
             .Take(10);
 
         //Act
@@ -41,7 +41,7 @@ public class SkipTakeRemoveTests
     {
         // Arrange
         List<int> vals = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        IQueryable<int> query = QueryablePagination.MakePagination((_, _) => vals)
+        IQueryable<int> query = QueryablePagination.MakePagination((_) => vals)
             .Select(pre => pre * 2)
             .Take(10)
             .Skip(10)

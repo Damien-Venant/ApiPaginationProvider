@@ -10,13 +10,13 @@ namespace ApiPagination.Library
 {
     internal class ApiPaginationQueryProvider<T> : BaseApiPaginationQueryPagination<T>
     {
-        private readonly Func<int, int, IEnumerable<T>> apiCall;
-        public ApiPaginationQueryProvider(Func<int, int, IEnumerable<T>> apiCall)
+        private readonly Func<SkipTake, IEnumerable<T>> apiCall;
+        public ApiPaginationQueryProvider(Func<SkipTake, IEnumerable<T>> apiCall)
         {
             this.apiCall = apiCall;
         }
 
-        protected override IEnumerable<T> getData(int skip, int take) =>
-            apiCall(skip, take);
+        protected override IEnumerable<T> getData(SkipTake skipTake) =>
+            apiCall(skipTake);
     }
 }

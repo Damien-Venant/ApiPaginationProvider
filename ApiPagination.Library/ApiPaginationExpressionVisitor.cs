@@ -5,7 +5,7 @@ namespace ApiPagination.Library
 {
     internal class ApiPaginationExpressionVisitor : ExpressionVisitor
     {
-        internal ApiParameters Parameters { get; } = new ApiParameters();
+        internal ApiParameters Parameters { get; set; } = new ApiParameters();
         
         protected override Expression VisitMethodCall(MethodCallExpression node)
         {
