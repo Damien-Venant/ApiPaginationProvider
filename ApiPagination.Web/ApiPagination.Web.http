@@ -1,6 +1,0 @@
-@ApiPagination.Web_HostAddress = http://localhost:5187
-
-GET {{ApiPagination.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
