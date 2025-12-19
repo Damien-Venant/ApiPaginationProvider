@@ -6,17 +6,15 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("ApiPagination.Tests")]
-namespace ApiPagination.Library
+namespace ApiPagination.Library;
+internal class ApiPaginationQueryProvider<T> : BaseApiPaginationQueryPagination<T>
 {
-    internal class ApiPaginationQueryProvider<T> : BaseApiPaginationQueryPagination<T>
+    private readonly Func<SkipTake, IEnumerable<T>> apiCall;
+    public ApiPaginationQueryProvider(Func<SkipTake, IEnumerable<T>> apiCall)
     {
-        private readonly Func<SkipTake, IEnumerable<T>> apiCall;
-        public ApiPaginationQueryProvider(Func<SkipTake, IEnumerable<T>> apiCall)
-        {
-            this.apiCall = apiCall;
-        }
-
-        protected override IEnumerable<T> getData(SkipTake skipTake) =>
-            apiCall(skipTake);
+        this.apiCall = apiCall;
     }
+
+    protected override IEnumerable<T> GetData(SkipTake skipTake) =>
+        apiCall(skipTake);
 }

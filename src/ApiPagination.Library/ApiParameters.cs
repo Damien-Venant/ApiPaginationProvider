@@ -1,8 +1,6 @@
-﻿namespace ApiPagination.Library
+﻿namespace ApiPagination.Library;
+internal class ApiParameters
 {
-    internal class ApiParameters
-    {
-        public int Skip { get; set; }
-        public int Take { get; set; }
-    }
+    public int Skip { get; set; }
+    public int Take { get; set; }
 }
