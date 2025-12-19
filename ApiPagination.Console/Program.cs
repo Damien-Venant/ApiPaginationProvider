@@ -11,8 +11,8 @@ public class ResultUser
 public class User
 {
     public Guid Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public required string FirstName { get; set; }
+    public required string LastName { get; set; }
 }
 
 public class Program
@@ -24,10 +24,9 @@ public class Program
             Timeout = TimeSpan.FromSeconds(15),
         };
 
-        IQueryable<User> apiPagination = QueryablePagination.MakePagination<User>(async (skip,
-            take) =>
+        IQueryable<User> apiPagination = QueryablePagination.MakePagination<User>(async (skiptTake) =>
         {
-            var result = await httpClient.GetAsync($"http://localhost:5187/api/users?skip={skip}&take={take}");
+            var result = await httpClient.GetAsync($"http://localhost:5187/api/users?skip={skiptTake.Skip}&take={skiptTake.Take}");
             var content = await result.Content.ReadFromJsonAsync<ResultUser>();
             return content?.Elements;
         });
