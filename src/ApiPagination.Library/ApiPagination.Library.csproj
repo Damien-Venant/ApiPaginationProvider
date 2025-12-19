@@ -13,7 +13,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>ApiPagination</PackageId>
         <Version>v0.1.0</Version>
-        <Authors>Damien</Authors>
+        <Authors>Damien Venant-Valéry</Authors>
         <Company>Septeo Genapi</Company>
     </PropertyGroup>
 
